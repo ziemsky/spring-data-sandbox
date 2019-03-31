@@ -1,0 +1,37 @@
+### Gradle ###
+!gradle/wrapper/gradle-wrapper.jar
+.gradle
+
+
+### Build ###
+build/
+!/buildSrc/src/main/**/build/
+.kotlintest
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### Google Credentials ###
+StoredCredential
+credentials.json
+secrets.tar

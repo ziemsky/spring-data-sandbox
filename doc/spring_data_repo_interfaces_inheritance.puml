@@ -1,0 +1,54 @@
+@startuml
+
+title A) Domain Repo at the top, specialised repos extend it and from JpaRepo
+
+note as noteA
+    Domain Repo defines selected methods from JpaRepo
+end note
+
+interface DomainRepository
+interface SpecialisedRepositoryA
+interface SpecialisedRepositoryB
+interface JpaRepository
+
+
+DomainRepository <|-- SpecialisedRepositoryA
+DomainRepository <|-- SpecialisedRepositoryB
+
+JpaRepository <|-- SpecialisedRepositoryA
+JpaRepository <|-- SpecialisedRepositoryB
+
+@enduml
+
+
+@startuml
+
+title B) Domain Repo inherits from JpaRepo, specialised repos extend Domain Repo
+
+interface DomainRepository
+interface SpecialisedRepositoryA
+interface SpecialisedRepositoryB
+interface JpaRepository
+
+
+JpaRepository <|-- DomainRepository
+
+DomainRepository <|-- SpecialisedRepositoryA
+DomainRepository <|-- SpecialisedRepositoryB
+
+@enduml
+
+
+@startuml
+
+title C) No Domain Repo, specialised repos extend JpaRepo
+
+interface SpecialisedRepositoryA
+interface SpecialisedRepositoryB
+interface JpaRepository
+
+
+JpaRepository <|-- SpecialisedRepositoryA
+JpaRepository <|-- SpecialisedRepositoryB
+
+@enduml

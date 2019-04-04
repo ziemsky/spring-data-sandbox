@@ -29,18 +29,18 @@ class ApplicationTest {
 
     @Test
     void runApp() {
-        specialisedRepositoryA.save(new User("user a"));
-
-        specialisedRepositoryA.flush();
-
-
-        Optional<User> user_a = specialisedRepositoryA.findById("user a");
-
-        user_a.ifPresent(
-            user -> System.out.println("FOUND users: " + user)
-        );
-
-        user_a.orElseThrow(RuntimeException::new);
+        // specialisedRepositoryA.save(new User("user a"));
+        //
+        // specialisedRepositoryA.flush();
+        //
+        //
+        // Optional<User> user_a = specialisedRepositoryA.findById("user a");
+        //
+        // user_a.ifPresent(
+        //     user -> System.out.println("FOUND users: " + user)
+        // );
+        //
+        // user_a.orElseThrow(RuntimeException::new);
     }
 
     // @Configuration

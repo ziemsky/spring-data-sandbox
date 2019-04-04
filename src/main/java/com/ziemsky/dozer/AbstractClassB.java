@@ -19,6 +19,9 @@ public abstract class AbstractClassB {
         this.classC = classC;
     }
 
+    public abstract String getTextPropB();
+
+
     @Override public String toString() {
         return "AbstractClassB{" +
             "classC=" + classC +

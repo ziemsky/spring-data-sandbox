@@ -32,15 +32,7 @@ public class DozerTest {
                         ClassBPrime.class
                         ,
                         TypeMappingOptions.oneWay()
-                    )
-                        .fields(
-                            field("textPropB"),
-                            field("textPropBPrime")
-                                // .setMethod("setTextPropBPrime")
-                            ,
-                            FieldsMappingOptions.oneWay()
-                        )
-                    ;
+                    );
 
                 }
             })
@@ -65,7 +57,7 @@ public class DozerTest {
 
         // TARGET hierarchy
         assertThat(targetRoot.toString())
-            .isEqualTo("ClassA{textPropA='A', classB=ClassBPrime{textPropBPrime='B', classC=ClassC{textPropC='C'}}}");
+            .isEqualTo("ClassA{textPropA='A', classB=ClassBPrime{textPropB='B', classC=ClassC{textPropC='C'}}}");
     }
 
     static void log(Event event) {

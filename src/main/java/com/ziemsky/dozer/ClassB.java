@@ -4,20 +4,19 @@ public class ClassB extends AbstractClassB {
 
     private String textPropB;
 
+    public ClassB() {
+    }
 
     public ClassB(final String textPropB, final ClassC classC) {
         super(classC);
         this.textPropB = textPropB;
     }
 
-    public ClassB() {
-    }
-
     public void setTextPropB(final String textPropB) {
         this.textPropB = textPropB;
     }
 
-    public String getTextPropB() {
+    @Override public String getTextPropB() {
         return textPropB;
     }
 

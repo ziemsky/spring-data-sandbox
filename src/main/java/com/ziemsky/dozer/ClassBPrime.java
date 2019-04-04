@@ -2,28 +2,27 @@ package com.ziemsky.dozer;
 
 public class ClassBPrime extends AbstractClassB {
 
-
-    private String textPropBPrime;
+    private String textPropB;
 
     public ClassBPrime() {
     }
 
-    public ClassBPrime(final String textPropBPrime, final ClassC classC) {
+    public ClassBPrime(final String textPropB, final ClassC classC) {
         super(classC);
-        this.textPropBPrime = textPropBPrime;
+        this.textPropB = textPropB;
     }
 
-    public void setTextPropBPrime(final String textPropBPrime) {
-        this.textPropBPrime = textPropBPrime;
+    public void setTextPropB(final String textPropB) {
+        this.textPropB = textPropB;
     }
 
-    public String getTextPropBPrime() {
-        return textPropBPrime;
+    @Override public String getTextPropB() {
+        return textPropB;
     }
 
     @Override public String toString() {
         return "ClassBPrime{" +
-            "textPropBPrime='" + textPropBPrime + '\'' +
+            "textPropB='" + textPropB + '\'' +
             ", classC=" + classC +
             '}';
     }

@@ -3,10 +3,18 @@ package com.ziemsky.dozer;
 public class ClassC {
     private String textPropC;
 
-    private ClassC() {
+    public ClassC() {
     }
 
     public ClassC(final String textPropC) {
+        this.textPropC = textPropC;
+    }
+
+    public String getTextPropC() {
+        return textPropC;
+    }
+
+    public void setTextPropC(final String textPropC) {
         this.textPropC = textPropC;
     }
 

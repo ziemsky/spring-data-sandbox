@@ -11,7 +11,23 @@ public class ClassB {
         this.classC = classC;
     }
 
-    private ClassB() {
+    public ClassB() {
+    }
+
+    public void setTextPropB(final String textPropB) {
+        this.textPropB = textPropB;
+    }
+
+    public void setClassC(final ClassC classC) {
+        this.classC = classC;
+    }
+
+    public String getTextPropB() {
+        return textPropB;
+    }
+
+    public ClassC getClassC() {
+        return classC;
     }
 
     @Override public String toString() {

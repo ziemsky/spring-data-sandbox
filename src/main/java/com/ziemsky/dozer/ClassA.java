@@ -4,7 +4,7 @@ public class ClassA {
 
     private String textPropA;
 
-    private ClassB classB;
+    private AbstractClassB classB;
 
     public ClassA() {
     }
@@ -18,7 +18,7 @@ public class ClassA {
         this.textPropA = textPropA;
     }
 
-    public void setClassB(final ClassB classB) {
+    public void setClassB(final AbstractClassB classB) {
         this.classB = classB;
     }
 
@@ -26,7 +26,7 @@ public class ClassA {
         return textPropA;
     }
 
-    public ClassB getClassB() {
+    public AbstractClassB getClassB() {
         return classB;
     }
 

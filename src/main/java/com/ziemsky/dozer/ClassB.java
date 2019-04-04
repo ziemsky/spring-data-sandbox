@@ -1,14 +1,13 @@
 package com.ziemsky.dozer;
 
-public class ClassB {
+public class ClassB extends AbstractClassB {
 
     private String textPropB;
 
-    private ClassC classC;
 
     public ClassB(final String textPropB, final ClassC classC) {
+        super(classC);
         this.textPropB = textPropB;
-        this.classC = classC;
     }
 
     public ClassB() {
@@ -18,16 +17,8 @@ public class ClassB {
         this.textPropB = textPropB;
     }
 
-    public void setClassC(final ClassC classC) {
-        this.classC = classC;
-    }
-
     public String getTextPropB() {
         return textPropB;
-    }
-
-    public ClassC getClassC() {
-        return classC;
     }
 
     @Override public String toString() {

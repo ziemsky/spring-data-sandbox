@@ -17,12 +17,6 @@ public class Config {
 
     private Logger log = LoggerFactory.getLogger(Config.class);
 
-    // @Bean
-    // public DomainRepository repositoryA(SpecialisedRepositoryA specialisedRepositoryA) {
-    //
-    //     return specialisedRepositoryA;
-    // }
-
     @Bean
     public DomainRepository proxyRepositoryA(SpecialisedRepositoryA specialisedRepositoryA) {
 
@@ -40,4 +34,10 @@ public class Config {
                     .invoke(specialisedRepositoryA, args);
             });
     }
+
+    // @Bean
+    // public DomainRepository repositoryA(SpecialisedRepositoryA specialisedRepositoryA) {
+    //
+    //     return specialisedRepositoryA;
+    // }
 }

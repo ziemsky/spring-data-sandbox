@@ -1,4 +1,4 @@
-package com.ziemsky.dozer;
+package com.ziemsky.springdata.jpa.entities;
 
 public abstract class AbstractClassB {
 

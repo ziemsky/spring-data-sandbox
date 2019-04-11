@@ -1,14 +1,11 @@
 package com.ziemsky.springdata;
 
-import com.github.dozermapper.core.CustomConverter;
 import com.github.dozermapper.core.DozerBeanMapperBuilder;
 import com.github.dozermapper.core.Mapper;
 import com.github.dozermapper.core.events.Event;
 import com.github.dozermapper.core.events.EventListener;
 import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
-import com.github.dozermapper.core.loader.api.FieldsMappingOptions;
-import com.github.dozermapper.core.loader.api.TypeMappingOptions;
-import com.ziemsky.dozer.*;
+import com.ziemsky.springdata.jpa.entities.*;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,12 +24,7 @@ public class DozerTest {
             .withMappingBuilder(new BeanMappingBuilder() {
                 @Override protected void configure() {
 
-                    mapping(
-                        ClassB.class,
-                        ClassBPrime.class
-                        ,
-                        TypeMappingOptions.oneWay()
-                    );
+                    mapping(ClassBPrime.class, ClassB.class);
 
                 }
             })

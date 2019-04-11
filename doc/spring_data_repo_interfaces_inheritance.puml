@@ -1,9 +1,19 @@
 @startuml
 
-title A) Domain Repo at the top, specialised repos extend it and from JpaRepo
+title A) Database-agnostic DomainRepo at the top, specialised repos extend it and JpaRepo
 
 note as noteA
-    Domain Repo defines selected methods from JpaRepo
+    DomainRepo is database-agnostic
+    and defines selected methods from JpaRepo
+
+    E.g.: RoundRepository
+end note
+
+note as noteB
+    SpecialisedRepos are Spring Data repositories
+    in DB2 and Oracle versions.
+    E.g.: Db2RoundRepository
+            OracleRoundRepository
 end note
 
 interface DomainRepository
@@ -11,6 +21,8 @@ interface SpecialisedRepositoryA
 interface SpecialisedRepositoryB
 interface JpaRepository
 
+noteA .. DomainRepository
+noteB .. SpecialisedRepositoryA
 
 DomainRepository <|-- SpecialisedRepositoryA
 DomainRepository <|-- SpecialisedRepositoryB

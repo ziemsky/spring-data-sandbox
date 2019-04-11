@@ -1,6 +1,7 @@
 package com.ziemsky.springdata;
 
 import com.ziemsky.springdata.jpa.DomainRepository;
+import com.ziemsky.springdata.jpa.SpecialisedRepositoryD;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,12 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 import java.util.Optional;
 
 @SpringBootApplication
-public class Application implements ApplicationRunner {
+public class Application {
 
     private Logger log = LoggerFactory.getLogger(Application.class);
 
@@ -24,22 +26,24 @@ public class Application implements ApplicationRunner {
 
     @Autowired
     @Qualifier("proxyRepositoryA")
-    private DomainRepository specialisedRepositoryA;
+    private DomainRepository domainRepository;
 
-    @Override public void run(final ApplicationArguments args) throws Exception {
-
-        specialisedRepositoryA.save(new User("user A"));
-        specialisedRepositoryA.save(new User("user B"));
-
-        specialisedRepositoryA.flush();
-
-        final Optional<User> user_a = specialisedRepositoryA.findById("user A");
-
-        final Optional<User> user_b = specialisedRepositoryA.findThroughNativeQuery("user B");
-
-        logUserFound(user_a, "user_a via findById");
-        logUserFound(user_b, "user_b via findThroughNativeQuery");
-    }
+    // @Bean
+    // public ApplicationRunner applicationRunner() {
+    //     return args -> {
+    //         domainRepository.save(new User("user A"));
+    //         domainRepository.save(new User("user B"));
+    //
+    //         domainRepository.flush();
+    //
+    //         final Optional<User> user_a = domainRepository.findById("user A");
+    //
+    //         final Optional<User> user_b = domainRepository.findThroughNativeQuery("user B");
+    //
+    //         logUserFound(user_a, "user_a via findById");
+    //         logUserFound(user_b, "user_b via findThroughNativeQuery");
+    //     };
+    // }
 
     private void logUserFound(final Optional<User> user, final String username) {
         if (user.isPresent()) {

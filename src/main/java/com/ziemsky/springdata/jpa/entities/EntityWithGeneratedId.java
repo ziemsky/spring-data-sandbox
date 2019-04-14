@@ -3,6 +3,7 @@ package com.ziemsky.springdata.jpa.entities;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "entity_with_generated_id")
@@ -53,4 +54,15 @@ public class EntityWithGeneratedId {
     }
 
 
+    @Override public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final EntityWithGeneratedId that = (EntityWithGeneratedId) o;
+        return Objects.equals(id, that.id) &&
+            Objects.equals(textProp, that.textProp);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(id, textProp);
+    }
 }

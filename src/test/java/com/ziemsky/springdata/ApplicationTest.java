@@ -77,21 +77,22 @@ class ApplicationTest {
 
         final EntityWithGeneratedId firstRecord = new EntityWithGeneratedId();
         firstRecord.setTextProp("aaa");
-
         specialisedRepositoryD.saveAndFlush(firstRecord);
 
 
-
-
-        final EntityWithGeneratedId secondRecord = new EntityWithGeneratedId(10, "bbb");
-
+        final EntityWithGeneratedId secondRecord = new EntityWithGeneratedId();
+        secondRecord.setTextProp("bbb");
         specialisedRepositoryD.saveAndFlush(secondRecord);
+
+
+        final EntityWithGeneratedId thirdRecord = new EntityWithGeneratedId(10, "ccc");
+        specialisedRepositoryD.saveAndFlush(thirdRecord);
 
         log.info("------------------------------------------------------");
         log.info("COUNT: {}", JdbcTestUtils.countRowsInTable(jdbcTemplate, "entity_with_generated_id"));
 
-        final List<TestDto> foundObjects = jdbcTemplate.query(
-            "SELECT * FROM entity_with_generated_id", new BeanPropertyRowMapper<>(TestDto.class)
+        final List<EntityWithGeneratedId> foundObjects = jdbcTemplate.query(
+            "SELECT * FROM entity_with_generated_id", new BeanPropertyRowMapper<>(EntityWithGeneratedId.class)
         ).stream()
             .collect(toList());
 
@@ -99,11 +100,10 @@ class ApplicationTest {
         foundObjects.forEach(testDto -> log.info("FOUND: {}", testDto));
 
         assertThat(foundObjects).isEqualTo(asList(
-            new TestDto(1, "aaa"),
-            new TestDto(10, "bbb")
+            new EntityWithGeneratedId(1, "aaa"),
+            new EntityWithGeneratedId(2, "bbb"),
+            new EntityWithGeneratedId(10, "ccc")
         ));
-
-
     }
 
 

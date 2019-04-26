@@ -4,10 +4,11 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Objects;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "entity_with_generated_id")
-public class EntityWithGeneratedId {
+public class EntityWithGeneratedId implements Serializable, Identifiable {
 
     // Plugging custom generator which returns provided value if available or generates one if not:
     // https://stackoverflow.com/questions/3194721/bypass-generatedvalue-in-hibernate-merge-data-not-in-db
@@ -30,6 +31,7 @@ public class EntityWithGeneratedId {
         this.textProp = textProp;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }

@@ -13,11 +13,11 @@ public class UseIdOrGenerate extends IdentityGenerator {
     public Serializable generate(SharedSessionContractImplementor session, Object obj) throws HibernateException {
         if (obj == null) throw new HibernateException(new NullPointerException()) ;
 
-        if ((((EntityWithGeneratedId) obj).getId()) == null) {
+        if ((((Identifiable) obj).getId()) == null) {
             Serializable id = super.generate(session, obj) ;
             return id;
         } else {
-            return ((EntityWithGeneratedId) obj).getId();
+            return ((Identifiable) obj).getId();
         }
     }
 }

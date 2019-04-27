@@ -16,6 +16,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -178,18 +179,20 @@ class OneToManyRelationshipsTest {
         "insert into one_to_many_retained_entity (id, name, parent_entity_id) values (11, 'levelOneEntity1', 1)",
         "insert into one_to_many_retained_entity (id, name, parent_entity_id) values (12, 'levelOneEntity2', 1)",
         "insert into one_to_many_retained_entity (id, name, parent_entity_id) values (13, 'levelOneEntity3', 1)",
-    }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
+    })
     void doesNotDeleteRelated_whenRootPropertyNulled_whereNotSetToRemoveOrphans_andCreatedInMemory() {
 
         executeWithinTransaction(() -> {
 
-            final OneToManyParentEntity parentEntity = OneToManyParentEntity.builder().id(1).build();
+            final OneToManyParentEntity parentEntity = OneToManyParentEntity.builder()
+                .levelOneRemovedOrphanEntities(new HashSet<>())
+                .id(1).build();
 
-            // parentEntity.setLevelOneRetainedOrphanEntities(newLinkedHashSet(
-            //     OneToManyRetainedEntity.builder().id(11).name("levelOneEntity1").parentEntity(parentEntity).build(),
-            //     //                                             levelOneEntity2 'removed' by not adding
-            //     OneToManyRetainedEntity.builder().id(13).name("levelOneEntity3").parentEntity(parentEntity).build()
-            // ));
+            parentEntity.setLevelOneRetainedOrphanEntities(newLinkedHashSet(
+                OneToManyRetainedEntity.builder().id(11).name("levelOneEntity1").parentEntity(parentEntity).build(),
+                //                                             levelOneEntity2 'removed' by not adding
+                OneToManyRetainedEntity.builder().id(13).name("levelOneEntity3").parentEntity(parentEntity).build()
+            ));
 
             oneToManyParentEntityRepository.save(parentEntity);
         });

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @ToString
 @Setter
 @Getter
-public class RemovedEntity {
+public class OneToManyRemovedEntity {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -22,7 +22,7 @@ public class RemovedEntity {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "rootEntityId")
+    @JoinColumn(name = "parentEntityId")
     @EqualsAndHashCode.Exclude
-    private RootEntity rootEntity;
+    private OneToManyParentEntity parentEntity;
 }

@@ -14,5 +14,5 @@ public class LevelOneDto {
     private Integer id;
     private String name;
 
-    private Integer rootEntityId;
+    private Integer parentEntityId;
 }

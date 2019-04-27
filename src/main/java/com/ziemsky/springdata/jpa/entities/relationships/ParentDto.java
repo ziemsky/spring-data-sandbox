@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class RootDto {
+public class ParentDto {
 
     private Integer id;
     private Integer levelOneRemovedOrphanId;

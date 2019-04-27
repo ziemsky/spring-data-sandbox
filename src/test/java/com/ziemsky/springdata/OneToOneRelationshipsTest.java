@@ -34,7 +34,7 @@ class OneToOneRelationshipsTest {
     private Logger log = LoggerFactory.getLogger(Application.class);
 
     @Autowired
-    private RootEntityRepository rootEntityRepository;
+    private OneToOneParentEntityRepository oneToOneParentEntityRepository;
 
     @Autowired
     private DataSource dataSource;
@@ -56,24 +56,25 @@ class OneToOneRelationshipsTest {
 
     @Test
     @Sql(statements = {
-        "delete from root_entity",
-        "delete from removed_entity",
+        "delete from one_to_one_parent_entity",
+        "delete from one_to_one_removed_entity",
+        "delete from one_to_one_retained_entity",
 
-        "insert into removed_entity (id, name) values (10, 'levelOneEntity')",
-        "insert into root_entity (id, level_one_removed_orphan_id) values (1, 10)",
+        "insert into one_to_one_removed_entity (id, name) values (10, 'levelOneEntity')",
+        "insert into one_to_one_parent_entity (id, level_one_removed_orphan_id) values (1, 10)",
     })
     void deletesRelated_whenRootPropertyNulled_whereSetToRemoveOrphans_andLoadedFromRepo() {
 
-        final RootEntity rootEntity = rootEntityRepository.findById(1).get();
+        final OneToOneParentEntity rootEntity = oneToOneParentEntityRepository.findById(1).get();
 
         rootEntity.setLevelOneRemovedOrphanEntity(null);
 
 
-        rootEntityRepository.saveAndFlush(rootEntity);
+        oneToOneParentEntityRepository.saveAndFlush(rootEntity);
 
 
-        assertThat(actualRootEntityRecords()).isEqualTo(asList(
-            RootDto.builder().id(1).build()
+        assertThat(actualParentEntityRecords()).isEqualTo(asList(
+            ParentDto.builder().id(1).build()
         ));
 
         assertThat(actualRemovedRecords()).isEmpty();
@@ -81,24 +82,25 @@ class OneToOneRelationshipsTest {
 
     @Test
     @Sql(statements = {
-        "delete from root_entity",
-        "delete from removed_entity",
+        "delete from one_to_one_parent_entity",
+        "delete from one_to_one_removed_entity",
+        "delete from one_to_one_retained_entity",
 
-        "insert into removed_entity (id, name) values (10, 'levelOneEntity')",
-        "insert into root_entity (id, level_one_removed_orphan_id) values (1, 10)",
+        "insert into one_to_one_removed_entity (id, name) values (10, 'levelOneEntity')",
+        "insert into one_to_one_parent_entity (id, level_one_removed_orphan_id) values (1, 10)",
     })
     void deletesRelated_whenRootPropertyNulled_whereSetToRemoveOrphans_andCreatedInMemory() {
 
-        final RootEntity rootEntity = RootEntity.builder().id(1).build();
+        final OneToOneParentEntity rootEntity = OneToOneParentEntity.builder().id(1).build();
 
         rootEntity.setLevelOneRemovedOrphanEntity(null);
 
 
-        rootEntityRepository.saveAndFlush(rootEntity);
+        oneToOneParentEntityRepository.saveAndFlush(rootEntity);
 
 
-        assertThat(actualRootEntityRecords()).isEqualTo(asList(
-            RootDto.builder().id(1).build()
+        assertThat(actualParentEntityRecords()).isEqualTo(asList(
+            ParentDto.builder().id(1).build()
         ));
 
         assertThat(actualRemovedRecords()).isEmpty();
@@ -106,24 +108,25 @@ class OneToOneRelationshipsTest {
 
     @Test
     @Sql(statements = {
-        "delete from root_entity",
-        "delete from removed_entity",
+        "delete from one_to_one_parent_entity",
+        "delete from one_to_one_removed_entity",
+        "delete from one_to_one_retained_entity",
 
-        "insert into removed_entity (id, name) values (10, 'levelOneEntity')",
-        "insert into root_entity (id, level_one_retained_orphan_id) values (1, 10)",
+        "insert into one_to_one_retained_entity (id, name) values (10, 'levelOneEntity')",
+        "insert into one_to_one_parent_entity (id, level_one_retained_orphan_id) values (1, 10)",
     })
     void doesNotDeleteRelated_whenRootPropertyNulled_whereNotSetToRemoveOrphans_andLoadedFromRepo() {
 
-        final RootEntity rootEntity = rootEntityRepository.findById(1).get();
+        final OneToOneParentEntity rootEntity = oneToOneParentEntityRepository.findById(1).get();
 
         rootEntity.setLevelOneRetainedOrphanEntity(null);
 
 
-        rootEntityRepository.saveAndFlush(rootEntity);
+        oneToOneParentEntityRepository.saveAndFlush(rootEntity);
 
 
-        assertThat(actualRootEntityRecords()).isEqualTo(asList(
-            RootDto.builder().id(1).build()
+        assertThat(actualParentEntityRecords()).isEqualTo(asList(
+            ParentDto.builder().id(1).build()
         ));
 
         assertThat(actualRetainedRecords()).isEqualTo(asList(
@@ -136,23 +139,24 @@ class OneToOneRelationshipsTest {
 
     @Test
     @Sql(statements = {
-        "delete from root_entity",
-        "delete from removed_entity",
+        "delete from one_to_one_parent_entity",
+        "delete from one_to_one_removed_entity",
+        "delete from one_to_one_retained_entity",
 
-        "insert into removed_entity (id, name) values (10, 'levelOneEntity')",
-        "insert into root_entity (id, level_one_retained_orphan_id) values (1, 10)",
+        "insert into one_to_one_retained_entity (id, name) values (10, 'levelOneEntity')",
+        "insert into one_to_one_parent_entity (id, level_one_retained_orphan_id) values (1, 10)",
     })
     void doesNotDeleteRelated_whenRootPropertyNulled_whereNotSetToRemoveOrphans_andCreatedInMemory() {
 
-        final RootEntity rootEntity = RootEntity.builder().id(1).build();
+        final OneToOneParentEntity rootEntity = OneToOneParentEntity.builder().id(1).build();
 
         rootEntity.setLevelOneRetainedOrphanEntity(null);
 
-        rootEntityRepository.saveAndFlush(rootEntity);
+        oneToOneParentEntityRepository.saveAndFlush(rootEntity);
 
 
-        assertThat(actualRootEntityRecords()).isEqualTo(asList(
-            RootDto.builder().id(1).build()
+        assertThat(actualParentEntityRecords()).isEqualTo(asList(
+            ParentDto.builder().id(1).build()
         ));
 
         assertThat(actualRetainedRecords()).isEqualTo(asList(
@@ -164,24 +168,24 @@ class OneToOneRelationshipsTest {
     }
 
     private List<LevelOneDto> actualRemovedRecords() {
-        return getAllRecords("removed_entity", LevelOneDto.class);
+        return getAllRecords("one_to_one_removed_entity", LevelOneDto.class);
     }
 
     private List<LevelOneDto> actualRetainedRecords() {
-        return getAllRecords("retained_entity", LevelOneDto.class);
+        return getAllRecords("one_to_one_retained_entity", LevelOneDto.class);
     }
 
-    private List<RootDto> actualRootEntityRecords() {
-        return getAllRecords("root_entity", RootDto.class);
+    private List<ParentDto> actualParentEntityRecords() {
+        return getAllRecords("one_to_one_parent_entity", ParentDto.class);
     }
 
     private void logRecords() {
-        final List<RootDto> rootDtos = actualRootEntityRecords();
+        final List<ParentDto> parentDtos = actualParentEntityRecords();
         final List<LevelOneDto> levelOneDtos = actualRemovedRecords();
 
-        logRecords(rootDtos, RootDto.class);
-        logRecords(levelOneDtos, RemovedEntity.class);
-        logRecords(levelOneDtos, RetainedEntity.class);
+        logRecords(parentDtos, ParentDto.class);
+        logRecords(levelOneDtos, OneToOneRemovedEntity.class);
+        logRecords(levelOneDtos, OneToOneRetainedEntity.class);
     }
 
     private void logTable(final String tableName) {

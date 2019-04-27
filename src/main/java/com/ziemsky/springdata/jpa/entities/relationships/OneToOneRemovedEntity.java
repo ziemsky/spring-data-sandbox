@@ -2,7 +2,9 @@ package com.ziemsky.springdata.jpa.entities.relationships;
 
 import lombok.*;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 @EqualsAndHashCode
@@ -12,7 +14,7 @@ import javax.persistence.*;
 @ToString
 @Setter
 @Getter
-public class RetainedEntity {
+public class OneToOneRemovedEntity {
 
     @Id
     @Column(name = "id", nullable = false)
@@ -20,9 +22,4 @@ public class RetainedEntity {
 
     @Column(name = "name")
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "rootEntityId")
-    @EqualsAndHashCode.Exclude
-    private RootEntity rootEntity;
 }

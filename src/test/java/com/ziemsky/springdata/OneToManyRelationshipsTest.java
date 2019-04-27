@@ -40,7 +40,7 @@ class OneToManyRelationshipsTest {
     private PlatformTransactionManager platformTransactionManager;
 
     @Autowired
-    private RootEntityRepository rootEntityRepository;
+    private OneToManyParentEntityRepository oneToManyParentEntityRepository;
 
     @Autowired
     private DataSource dataSource;
@@ -65,135 +65,139 @@ class OneToManyRelationshipsTest {
 
     @Test
     @Sql(statements = {
-        "delete from removed_entity",
-        "delete from root_entity",
+        "delete from one_to_many_retained_entity",
+        "delete from one_to_many_removed_entity",
+        "delete from one_to_many_parent_entity",
 
-        "insert into root_entity (id) values (1)",
+        "insert into one_to_many_parent_entity (id) values (1)",
 
-        "insert into removed_entity (id, name, root_entity_id) values (11, 'levelOneEntity1', 1)",
-        "insert into removed_entity (id, name, root_entity_id) values (12, 'levelOneEntity2', 1)",
-        "insert into removed_entity (id, name, root_entity_id) values (13, 'levelOneEntity3', 1)",
+        "insert into one_to_many_removed_entity (id, name, parent_entity_id) values (11, 'levelOneEntity1', 1)",
+        "insert into one_to_many_removed_entity (id, name, parent_entity_id) values (12, 'levelOneEntity2', 1)",
+        "insert into one_to_many_removed_entity (id, name, parent_entity_id) values (13, 'levelOneEntity3', 1)",
     })
     void deletesRelated_whenElementRemovedFromRootProperty_whereSetToRemoveOrphans_andLoadedFromRepo() {
 
         executeWithinTransaction(() -> {
 
-            final RootEntity rootEntity = rootEntityRepository.findById(1).get();
+            final OneToManyParentEntity parentEntity = oneToManyParentEntityRepository.findById(1).get();
 
-            // we've loaded rootEntity with complete collection - now find and remove one element from the collection
-            final RemovedEntity entityToRemove = rootEntity.getLevelOneRemovedOrphanEntities().stream()
+            // we've loaded parentEntity with complete collection - now find and remove one element from the collection
+            final OneToManyRemovedEntity entityToRemove = parentEntity.getLevelOneRemovedOrphanEntities().stream()
                 .filter(levelOneEntity -> levelOneEntity.getId().equals(12)).findFirst().get();
 
-            rootEntity.getLevelOneRemovedOrphanEntities().remove(
+            parentEntity.getLevelOneRemovedOrphanEntities().remove(
                 entityToRemove
             );
 
-            rootEntityRepository.save(rootEntity);
+            oneToManyParentEntityRepository.save(parentEntity);
         });
 
         assertThat(actualRemovedRecords()).isEqualTo(asList(
-            LevelOneDto.builder().id(11).name("levelOneEntity1").rootEntityId(1).build(),
-            LevelOneDto.builder().id(13).name("levelOneEntity3").rootEntityId(1).build()
+            LevelOneDto.builder().id(11).name("levelOneEntity1").parentEntityId(1).build(),
+            LevelOneDto.builder().id(13).name("levelOneEntity3").parentEntityId(1).build()
         ));
     }
 
     @Test
     @Sql(statements = {
-        "delete from removed_entity",
-        "delete from root_entity",
+        "delete from one_to_many_retained_entity",
+        "delete from one_to_many_removed_entity",
+        "delete from one_to_many_parent_entity",
 
-        "insert into root_entity (id) values (1)",
+        "insert into one_to_many_parent_entity (id) values (1)",
 
-        "insert into removed_entity (id, name, root_entity_id) values (11, 'levelOneEntity1', 1)",
-        "insert into removed_entity (id, name, root_entity_id) values (12, 'levelOneEntity2', 1)",
-        "insert into removed_entity (id, name, root_entity_id) values (13, 'levelOneEntity3', 1)",
+        "insert into one_to_many_removed_entity (id, name, parent_entity_id) values (11, 'levelOneEntity1', 1)",
+        "insert into one_to_many_removed_entity (id, name, parent_entity_id) values (12, 'levelOneEntity2', 1)",
+        "insert into one_to_many_removed_entity (id, name, parent_entity_id) values (13, 'levelOneEntity3', 1)",
     })
     void deletesRelated_whenRootPropertyNulled_whereSetToRemoveOrphans_andCreatedInMemory() {
 
         executeWithinTransaction(() -> {
 
-            final RootEntity rootEntity = RootEntity.builder().id(1).build();
+            final OneToManyParentEntity parentEntity = OneToManyParentEntity.builder().id(1).build();
 
-            rootEntity.setLevelOneRemovedOrphanEntities(newLinkedHashSet(
-                RemovedEntity.builder().id(11).name("levelOneEntity1").rootEntity(rootEntity).build(),
+            parentEntity.setLevelOneRemovedOrphanEntities(newLinkedHashSet(
+                OneToManyRemovedEntity.builder().id(11).name("levelOneEntity1").parentEntity(parentEntity).build(),
                 //                                    levelOneEntity2 'removed' by not adding
-                RemovedEntity.builder().id(13).name("levelOneEntity3").rootEntity(rootEntity).build()
+                OneToManyRemovedEntity.builder().id(13).name("levelOneEntity3").parentEntity(parentEntity).build()
             ));
 
-            rootEntityRepository.save(rootEntity);
+            oneToManyParentEntityRepository.save(parentEntity);
         });
 
         assertThat(actualRemovedRecords()).isEqualTo(asList(
-            LevelOneDto.builder().id(11).name("levelOneEntity1").rootEntityId(1).build(),
-            LevelOneDto.builder().id(13).name("levelOneEntity3").rootEntityId(1).build()
+            LevelOneDto.builder().id(11).name("levelOneEntity1").parentEntityId(1).build(),
+            LevelOneDto.builder().id(13).name("levelOneEntity3").parentEntityId(1).build()
         ));
     }
 
     @Test
     @Sql(statements = {
-        "delete from retained_entity",
-        "delete from root_entity",
+        "delete from one_to_many_retained_entity",
+        "delete from one_to_many_removed_entity",
+        "delete from one_to_many_parent_entity",
 
-        "insert into root_entity (id) values (1)",
+        "insert into one_to_many_parent_entity (id) values (1)",
 
-        "insert into retained_entity (id, name, root_entity_id) values (11, 'levelOneEntity1', 1)",
-        "insert into retained_entity (id, name, root_entity_id) values (12, 'levelOneEntity2', 1)",
-        "insert into retained_entity (id, name, root_entity_id) values (13, 'levelOneEntity3', 1)",
+        "insert into one_to_many_retained_entity (id, name, parent_entity_id) values (11, 'levelOneEntity1', 1)",
+        "insert into one_to_many_retained_entity (id, name, parent_entity_id) values (12, 'levelOneEntity2', 1)",
+        "insert into one_to_many_retained_entity (id, name, parent_entity_id) values (13, 'levelOneEntity3', 1)",
     })
     void doesNotDeleteRelated_whenRootPropertyNulled_whereNotSetToRemoveOrphans_andLoadedFromRepo() {
 
         executeWithinTransaction(() -> {
 
-            final RootEntity rootEntity = rootEntityRepository.findById(1).get();
+            final OneToManyParentEntity parentEntity = oneToManyParentEntityRepository.findById(1).get();
 
-            // we've loaded rootEntity with complete collection - now find and remove one element from the collection
-            final RetainedEntity entityToRemove = rootEntity.getLevelOneRetainedOrphanEntities().stream()
+            // we've loaded parentEntity with complete collection - now find and remove one element from the collection
+            final OneToManyRetainedEntity entityToRemove = parentEntity.getLevelOneRetainedOrphanEntities().stream()
                 .filter(levelOneEntity -> levelOneEntity.getId().equals(12)).findFirst().get();
 
-            rootEntity.getLevelOneRetainedOrphanEntities().remove(
+            parentEntity.getLevelOneRetainedOrphanEntities().remove(
                 entityToRemove
             );
 
-            rootEntityRepository.save(rootEntity);
+            oneToManyParentEntityRepository.save(parentEntity);
         });
 
         assertThat(actualRetainedRecords()).isEqualTo(asList(
-            LevelOneDto.builder().id(11).name("levelOneEntity1").rootEntityId(1).build(),
-            LevelOneDto.builder().id(12).name("levelOneEntity2").rootEntityId(1).build(),
-            LevelOneDto.builder().id(13).name("levelOneEntity3").rootEntityId(1).build()
+            LevelOneDto.builder().id(11).name("levelOneEntity1").parentEntityId(1).build(),
+            LevelOneDto.builder().id(12).name("levelOneEntity2").parentEntityId(1).build(),
+            LevelOneDto.builder().id(13).name("levelOneEntity3").parentEntityId(1).build()
         ));
     }
 
     @Test
     @Sql(statements = {
-        "delete from retained_entity",
-        "delete from root_entity",
+        "delete from one_to_many_retained_entity",
+        "delete from one_to_many_removed_entity",
+        "delete from one_to_many_parent_entity",
 
-        "insert into root_entity (id) values (1)",
+        "insert into one_to_many_parent_entity (id) values (1)",
 
-        "insert into retained_entity (id, name, root_entity_id) values (11, 'levelOneEntity1', 1)",
-        "insert into retained_entity (id, name, root_entity_id) values (12, 'levelOneEntity2', 1)",
-        "insert into retained_entity (id, name, root_entity_id) values (13, 'levelOneEntity3', 1)",
+        "insert into one_to_many_retained_entity (id, name, parent_entity_id) values (11, 'levelOneEntity1', 1)",
+        "insert into one_to_many_retained_entity (id, name, parent_entity_id) values (12, 'levelOneEntity2', 1)",
+        "insert into one_to_many_retained_entity (id, name, parent_entity_id) values (13, 'levelOneEntity3', 1)",
     }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     void doesNotDeleteRelated_whenRootPropertyNulled_whereNotSetToRemoveOrphans_andCreatedInMemory() {
 
         executeWithinTransaction(() -> {
 
-            final RootEntity rootEntity = RootEntity.builder().id(1).build();
+            final OneToManyParentEntity parentEntity = OneToManyParentEntity.builder().id(1).build();
 
-            rootEntity.setLevelOneRetainedOrphanEntities(newLinkedHashSet(
-                RetainedEntity.builder().id(11).name("levelOneEntity1").rootEntity(rootEntity).build(),
-                //                                    levelOneEntity2 'removed' by not adding
-                RetainedEntity.builder().id(13).name("levelOneEntity3").rootEntity(rootEntity).build()
-            ));
+            // parentEntity.setLevelOneRetainedOrphanEntities(newLinkedHashSet(
+            //     OneToManyRetainedEntity.builder().id(11).name("levelOneEntity1").parentEntity(parentEntity).build(),
+            //     //                                             levelOneEntity2 'removed' by not adding
+            //     OneToManyRetainedEntity.builder().id(13).name("levelOneEntity3").parentEntity(parentEntity).build()
+            // ));
 
-            rootEntityRepository.save(rootEntity);
+            oneToManyParentEntityRepository.save(parentEntity);
         });
 
         assertThat(actualRetainedRecords()).isEqualTo(asList(
-            LevelOneDto.builder().id(11).name("levelOneEntity1").rootEntityId(1).build(),
-            LevelOneDto.builder().id(12).name("levelOneEntity2").rootEntityId(1).build(),
-            LevelOneDto.builder().id(13).name("levelOneEntity3").rootEntityId(1).build()
+            LevelOneDto.builder().id(11).name("levelOneEntity1").parentEntityId(1).build(),
+            LevelOneDto.builder().id(12).name("levelOneEntity2").parentEntityId(1).build(),
+            LevelOneDto.builder().id(13).name("levelOneEntity3").parentEntityId(1).build()
         ));
     }
 
@@ -207,20 +211,20 @@ class OneToManyRelationshipsTest {
     }
 
     private List<LevelOneDto> actualRemovedRecords() {
-        return getAllRecords("removed_entity", LevelOneDto.class);
+        return getAllRecords("one_to_many_removed_entity", LevelOneDto.class);
     }
 
     private List<LevelOneDto> actualRetainedRecords() {
-        return getAllRecords("retained_entity", LevelOneDto.class);
+        return getAllRecords("one_to_many_retained_entity", LevelOneDto.class);
     }
 
-    private List<RootDto> actualRootEntityRecords() {
-        return getAllRecords("root_entity", RootDto.class);
+    private List<ParentDto> actualRootEntityRecords() {
+        return getAllRecords("one_to_many_parent_entity", ParentDto.class);
     }
 
     private void logRecords() {
 
-        logRecords(actualRootEntityRecords(), RootDto.class);
+        logRecords(actualRootEntityRecords(), ParentDto.class);
         logRecords(actualRemovedRecords(), LevelOneDto.class);
         logRecords(actualRetainedRecords(), LevelOneDto.class);
     }

@@ -16,7 +16,7 @@ import java.util.Set;
 @ToString
 @Setter
 @Getter
-public class OneToManyParentEntity implements Identifiable {
+public class OneToManyParentEntity {
 
     @Id
     @Column(name = "id")

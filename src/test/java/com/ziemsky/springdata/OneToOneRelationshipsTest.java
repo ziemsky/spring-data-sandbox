@@ -22,7 +22,6 @@ import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@AutoConfigureTestEntityManager
 @SpringBootTest(
     classes = {
         Application.class,

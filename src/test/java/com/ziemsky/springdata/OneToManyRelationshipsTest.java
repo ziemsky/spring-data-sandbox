@@ -26,7 +26,6 @@ import static java.util.stream.Collectors.toList;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.util.Sets.newLinkedHashSet;
 
-@AutoConfigureTestEntityManager
 @SpringBootTest(
     classes = {
         Application.class,

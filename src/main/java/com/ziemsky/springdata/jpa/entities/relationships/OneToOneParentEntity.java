@@ -14,7 +14,7 @@ import javax.persistence.*;
 @ToString
 @Setter
 @Getter
-public class OneToOneParentEntity implements Identifiable {
+public class OneToOneParentEntity {
 
     @Id
     @Column(name = "id")

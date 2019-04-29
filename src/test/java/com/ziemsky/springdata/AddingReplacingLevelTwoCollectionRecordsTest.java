@@ -1,8 +1,8 @@
 package com.ziemsky.springdata;
 
-import com.ziemsky.springdata.jpa.FirstLevelOneToManyRelationshipsTest.entities.LevelOneEntity;
-import com.ziemsky.springdata.jpa.FirstLevelOneToManyRelationshipsTest.entities.LevelTwoEntity;
-import com.ziemsky.springdata.jpa.FirstLevelOneToManyRelationshipsTest.repos.LevelOneEntityRepo;
+import com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.entities.LevelOneEntity;
+import com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.entities.LevelTwoEntity;
+import com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.repos.LevelOneEntityRepo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,14 +30,14 @@ import static org.assertj.core.util.Sets.newLinkedHashSet;
 
 @SpringBootTest(
     classes = {
-        FirstLevelOneToManyRelationshipsTest.Config.class
+        AddingReplacingLevelTwoCollectionRecordsTest.Config.class
     },
     properties = {
         "spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming" +
             ".PhysicalNamingStrategyStandardImpl"
     }
 )
-class FirstLevelOneToManyRelationshipsTest {
+class AddingReplacingLevelTwoCollectionRecordsTest {
 
     private Logger log = LoggerFactory.getLogger(Application.class);
 
@@ -151,8 +151,8 @@ class FirstLevelOneToManyRelationshipsTest {
 
     @Configuration
     @EnableAutoConfiguration
-    @EnableJpaRepositories("com.ziemsky.springdata.jpa.FirstLevelOneToManyRelationshipsTest.repos")
-    @EntityScan("com.ziemsky.springdata.jpa.FirstLevelOneToManyRelationshipsTest.entities")
+    @EnableJpaRepositories("com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.repos")
+    @EntityScan("com.ziemsky.springdata.jpa.AddingReplacingLevelTwoCollectionRecordsTest.entities")
     public static class Config {
 
     }

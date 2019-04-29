@@ -1,4 +1,4 @@
-package com.ziemsky.springdata.jpa.FirstLevelOneToManyRelationshipsTest.entities;
+package com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.entities;
 
 import lombok.*;
 
@@ -19,7 +19,7 @@ public class LevelOneEntity {
     @Column(name = "id")
     private Integer id;
 
-    @OneToMany(mappedBy = "parentEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "parentEntity", cascade = CascadeType.MERGE)
     private Set<LevelTwoEntity> levelTwoEntities;
 
 

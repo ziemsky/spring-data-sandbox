@@ -1,4 +1,4 @@
-package com.ziemsky.springdata.jpa.FirstLevelOneToManyRelationshipsTest.entities;
+package com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.entities;
 
 import lombok.*;
 

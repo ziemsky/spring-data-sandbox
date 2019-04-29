@@ -1,10 +1,10 @@
 package com.ziemsky.springdata;
 
-import com.ziemsky.springdata.jpa.SecondLevelOneToManyRelationshipsTest.entities.LevelOneEntity;
-import com.ziemsky.springdata.jpa.SecondLevelOneToManyRelationshipsTest.entities.LevelTwoEntity;
-import com.ziemsky.springdata.jpa.SecondLevelOneToManyRelationshipsTest.entities.LevelThreeEntity;
-import com.ziemsky.springdata.jpa.SecondLevelOneToManyRelationshipsTest.repos.LevelOneEntityRepo;
-import com.ziemsky.springdata.jpa.SecondLevelOneToManyRelationshipsTest.repos.LevelThreeEntityRepo;
+import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.entities.LevelOneEntity;
+import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.entities.LevelTwoEntity;
+import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.entities.LevelThreeEntity;
+import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.repos.LevelOneEntityRepo;
+import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.repos.LevelThreeEntityRepo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,14 +32,14 @@ import static org.assertj.core.util.Sets.newLinkedHashSet;
 
 @SpringBootTest(
     classes = {
-        SecondLevelOneToManyRelationshipsTest.Config.class
+        UpdatingLevelTwoReferenceToLevelThreeTest.Config.class
     },
     properties = {
         "spring.jpa.hibernate.naming.physical-strategy=org.hibernate.boot.model.naming" +
             ".PhysicalNamingStrategyStandardImpl"
     }
 )
-class SecondLevelOneToManyRelationshipsTest {
+class UpdatingLevelTwoReferenceToLevelThreeTest {
 
     private Logger log = LoggerFactory.getLogger(Application.class);
 
@@ -233,8 +233,8 @@ class SecondLevelOneToManyRelationshipsTest {
 
     @Configuration
     @EnableAutoConfiguration
-    @EnableJpaRepositories("com.ziemsky.springdata.jpa.SecondLevelOneToManyRelationshipsTest.repos")
-    @EntityScan("com.ziemsky.springdata.jpa.SecondLevelOneToManyRelationshipsTest.entities")
+    @EnableJpaRepositories("com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.repos")
+    @EntityScan("com.ziemsky.springdata.jpa.UpdatingLevelTwoReferenceToLevelThreeTest.entities")
     public static class Config {
 
     }

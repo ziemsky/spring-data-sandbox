@@ -96,7 +96,7 @@ class SecondLevelOneToManyRelationshipsTest {
             .build();
 
 
-        final LevelTwoEntity levelTwoEntity = LevelTwoEntity.builder() // original (id) LevelOneEntity
+        final LevelTwoEntity levelTwoEntity = LevelTwoEntity.builder() // original (id) LevelTwoEntity
             .id(1)
             .parentEntity(levelOneEntity)
             .levelThreeEntity(                    // ...but re-pointed to a different LevelThreeEntity
@@ -151,7 +151,7 @@ class SecondLevelOneToManyRelationshipsTest {
                 .id(1)
                 .build();
 
-            final LevelTwoEntity levelTwoEntity = LevelTwoEntity.builder() // original (id) LevelOneEntity
+            final LevelTwoEntity levelTwoEntity = LevelTwoEntity.builder() // original (id) LevelTwoEntity
                 .id(1)
                 .parentEntity(levelOneEntity)
                 .levelThreeEntity(                    // ...but re-pointed to a different LevelThreeEntity

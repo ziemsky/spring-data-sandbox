@@ -1,10 +1,10 @@
 package com.ziemsky.springdata;
 
-import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.entities.LevelOneEntity;
-import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.entities.LevelTwoEntity;
-import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.entities.LevelThreeEntity;
-import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.repos.LevelOneEntityRepo;
-import com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.repos.LevelThreeEntityRepo;
+import com.ziemsky.springdata.test.UpdatingLevelTwoReferenceToLevelThreeTest.entities.LevelOneEntity;
+import com.ziemsky.springdata.test.UpdatingLevelTwoReferenceToLevelThreeTest.entities.LevelTwoEntity;
+import com.ziemsky.springdata.test.UpdatingLevelTwoReferenceToLevelThreeTest.entities.LevelThreeEntity;
+import com.ziemsky.springdata.test.UpdatingLevelTwoReferenceToLevelThreeTest.repos.LevelOneEntityRepo;
+import com.ziemsky.springdata.test.UpdatingLevelTwoReferenceToLevelThreeTest.repos.LevelThreeEntityRepo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -233,7 +233,7 @@ class UpdatingLevelTwoReferenceToLevelThreeTest {
 
     @Configuration
     @EnableAutoConfiguration
-    @EnableJpaRepositories("com.ziemsky.springdata.test.SecondLevelOneToManyRelationshipsTest.repos")
+    @EnableJpaRepositories("com.ziemsky.springdata.test.UpdatingLevelTwoReferenceToLevelThreeTest.repos")
     @EntityScan("com.ziemsky.springdata.jpa.UpdatingLevelTwoReferenceToLevelThreeTest.entities")
     public static class Config {
 

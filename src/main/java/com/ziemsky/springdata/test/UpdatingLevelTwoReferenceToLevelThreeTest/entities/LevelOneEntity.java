@@ -1,8 +1,9 @@
-package com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.entities;
+package com.ziemsky.springdata.test.UpdatingLevelTwoReferenceToLevelThreeTest.entities;
 
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @EqualsAndHashCode
@@ -12,16 +13,14 @@ import javax.persistence.*;
 @ToString
 @Setter
 @Getter
-public class LevelTwoEntity {
+public class LevelOneEntity {
 
     @Id
     @Column(name = "id")
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "parentEntityId")
-    @EqualsAndHashCode.Exclude
-    private LevelOneEntity parentEntity;
+    @OneToMany(mappedBy = "parentEntity", cascade = CascadeType.MERGE)
+    private Set<LevelTwoEntity> levelTwoEntities;
 
 
     @Data
@@ -31,6 +30,5 @@ public class LevelTwoEntity {
     @ToString
     public static class Dto {
         private Integer id;
-        private Integer parentEntityId;
     }
 }

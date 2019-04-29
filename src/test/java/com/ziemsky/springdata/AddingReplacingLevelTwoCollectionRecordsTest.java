@@ -1,8 +1,8 @@
 package com.ziemsky.springdata;
 
-import com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.entities.LevelOneEntity;
-import com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.entities.LevelTwoEntity;
-import com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.repos.LevelOneEntityRepo;
+import com.ziemsky.springdata.test.AddingReplacingLevelTwoCollectionRecordsTest.entities.LevelOneEntity;
+import com.ziemsky.springdata.test.AddingReplacingLevelTwoCollectionRecordsTest.entities.LevelTwoEntity;
+import com.ziemsky.springdata.test.AddingReplacingLevelTwoCollectionRecordsTest.repos.LevelOneEntityRepo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -151,7 +151,7 @@ class AddingReplacingLevelTwoCollectionRecordsTest {
 
     @Configuration
     @EnableAutoConfiguration
-    @EnableJpaRepositories("com.ziemsky.springdata.test.FirstLevelOneToManyRelationshipsTest.repos")
+    @EnableJpaRepositories("com.ziemsky.springdata.test.AddingReplacingLevelTwoCollectionRecordsTest.repos")
     @EntityScan("com.ziemsky.springdata.jpa.AddingReplacingLevelTwoCollectionRecordsTest.entities")
     public static class Config {
 

@@ -1,5 +1,10 @@
 package com.ziemsky.springdata;
 
+import com.github.dozermapper.core.DozerBeanMapperBuilder;
+import com.github.dozermapper.core.Mapper;
+import com.github.dozermapper.core.loader.api.BeanMappingBuilder;
+import com.ziemsky.springdata.jpa.entities.ClassB;
+import com.ziemsky.springdata.jpa.entities.ClassBPrime;
 import com.ziemsky.springdata.jpa.entities.relationships.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

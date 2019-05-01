@@ -1,0 +1,1 @@
+Quick and dirty 'sandbox' project to experiment with Spring Data JPA, Hibernate, Dozer Mapper, etc.  

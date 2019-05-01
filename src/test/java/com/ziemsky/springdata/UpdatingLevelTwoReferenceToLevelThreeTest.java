@@ -234,7 +234,7 @@ class UpdatingLevelTwoReferenceToLevelThreeTest {
     @Configuration
     @EnableAutoConfiguration
     @EnableJpaRepositories("com.ziemsky.springdata.test.UpdatingLevelTwoReferenceToLevelThreeTest.repos")
-    @EntityScan("com.ziemsky.springdata.jpa.UpdatingLevelTwoReferenceToLevelThreeTest.entities")
+    @EntityScan("com.ziemsky.springdata.test.UpdatingLevelTwoReferenceToLevelThreeTest.entities")
     public static class Config {
 
     }

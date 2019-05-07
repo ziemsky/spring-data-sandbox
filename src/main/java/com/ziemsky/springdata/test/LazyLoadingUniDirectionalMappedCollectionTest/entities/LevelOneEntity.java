@@ -6,13 +6,13 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@EqualsAndHashCode
+// @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
 // @ToString
 @Setter
-@Getter
+// @Getter
 public class LevelOneEntity {
 
     @Id
@@ -23,6 +23,9 @@ public class LevelOneEntity {
     @JoinColumn(name = "levelOneEntityId")
     private Set<LevelTwoEntity> levelTwoEntities;
 
+    public Integer getId() {
+        return id;
+    }
 
     public Set<LevelTwoEntity> getLevelTwoEntities() {
         System.out.println("getLevelTwoEntities CALLED");

@@ -25,6 +25,7 @@ ext['junit-jupiter.version'] = '5.4.1'
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
     implementation 'org.hibernate:hibernate-core:5.3.7.Final'
     
     runtimeOnly 'org.springframework.boot:spring-boot-devtools'

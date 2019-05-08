@@ -26,7 +26,7 @@ public class Config {
             new Class[]{SpecialisedRepositoryA.class},
 
             (proxy, method, args) -> {
-                log.info("INVOKING through proxy: {}", method.getName());
+                log.debug("INVOKING through proxy: {}", method.getName());
 
                 return specialisedRepositoryA
                     .getClass()
